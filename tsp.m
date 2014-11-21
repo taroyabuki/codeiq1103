@@ -19,7 +19,6 @@ CPU：Core i7-4930K
 実行方法
 1. ファイル名を「tsp.m」とする。
 2. コマンドプロンプトで「C:\Program Files\Wolfram Research\Mathematica\10.0\wolfram.exe" < tsp.m」を実行する。
-3../a.out
 *)
 search[cities_] := 
  Module[{min, travel, d, minDistance = Infinity, shortEdges, format},
