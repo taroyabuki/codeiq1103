@@ -8,7 +8,7 @@ $CharacterEncoding = "UTF-8";
 
 実行環境
 プラットフォーム：Windows 8.1 64 bit
-処理系：Mathematica 10.0.1
+処理系：Mathematica 10.0.1 （Mathematica 10.0.1のFindShortestTour[]にはバグがあるため、今回の問題には使えない。）
 CPU：Core i7-4930K
 メモリ：64GB
 計算時間（秒）：37
