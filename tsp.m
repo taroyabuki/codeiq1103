@@ -8,17 +8,17 @@ $CharacterEncoding = "UTF-8";
 
 実行環境
 プラットフォーム：Windows 8.1 64 bit
-処理系：Mathematica 10.0.1 （Mathematica 10.0.1のFindShortestTour[]にはバグがあるため、今回の問題には使えない。）
-CPU：Core i7-4930K
-メモリ：64GB
-計算時間（秒）：37
+処理系：Mathematica 10.0.1
+CPU：Core i7-4700MQ
+メモリ：16GB
+計算時間（秒）：18
 
 環境構築方法
 1. Mathematicaをインストールする。
 
 実行方法
 1. ファイル名を「tsp.m」とする。
-2. コマンドプロンプトで「C:\Program Files\Wolfram Research\Mathematica\10.0\wolfram.exe" < tsp.m」を実行する。
+2. コマンドプロンプトで「"C:\Program Files\Wolfram Research\Mathematica\10.0\wolfram.exe" < tsp.m」を実行する。
 *)
 search[cities_] := 
  Module[{min, travel, d, minDistance = Infinity, shortEdges, format},
@@ -31,9 +31,6 @@ search[cities_] :=
   (*2点間の距離の計算法の定義。一度計算したら記憶する*)
   d[a_, b_] := d[a, b] = Norm[cities[[a]] - cities[[b]]];
   
-  (*エッジを短い順に並べておく*)
-  shortEdges = Sort[Flatten[Table[d[i, j], {i, 1, Length[cities] - 1}, {j, i + 1, Length[cities]}]], Less];
-  
   (*travel[すでに通過した点のリスト, それまでの経路長, まだ通過していない点のリスト]*)
   (*通過していない点が無くなったら、始点までの距離を追加し、暫定最短巡回路長を更新する*)
   travel[visited_, len_, {}] :=
@@ -42,8 +39,8 @@ search[cities_] :=
     {visited, x}];
   
   travel[visited_, len_, remain_] :=
-   (*残りのステップが最短だったとしても暫定巡回路長より長いなら、これ以上調べる必要は無い*)
-   If[len + Sum[shortEdges[[i]], {i, 1, Length[remain] + 1}] > minDistance, {{}, Infinity},
+   (*残りのステップを飛ばして直線でスタートに戻ったとしても暫定巡回路長より長いなら、これ以上調べる必要は無い*)
+   If[len + d[Last[visited], First[visited]] > minDistance, {{}, Infinity},
     min[Map[
       travel[(*再帰的に探索する*)
         (*問題の条件を使って探索範囲を狭めるため、最初の点の次に最後の点を調べる*)
